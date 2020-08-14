@@ -585,10 +585,10 @@ buttonpress(XEvent *e)
 		XAllowEvents(dpy, ReplayPointer, CurrentTime);
 		click = ClkClientWin;
 	}
-	for (i = 0; i < LENGTH(buttons); i++)
-		if (click == buttons[i].click && buttons[i].func && buttons[i].button == ev->button
-		&& CLEANMASK(buttons[i].mask) == CLEANMASK(ev->state))
-			buttons[i].func(click == ClkTagBar && buttons[i].arg.i == 0 ? &arg : &buttons[i].arg);
+	/*for (i = 0; i < LENGTH(buttons); i++)*/
+		/*if (click == buttons[i].click && buttons[i].func && buttons[i].button == ev->button*/
+		/*&& CLEANMASK(buttons[i].mask) == CLEANMASK(ev->state))*/
+			/*buttons[i].func(click == ClkTagBar && buttons[i].arg.i == 0 ? &arg : &buttons[i].arg);*/
 }
 
 void
@@ -1092,13 +1092,13 @@ grabbuttons(Client *c, int focused)
 		if (!focused)
 			XGrabButton(dpy, AnyButton, AnyModifier, c->win, False,
 				BUTTONMASK, GrabModeSync, GrabModeSync, None, None);
-		for (i = 0; i < LENGTH(buttons); i++)
-			if (buttons[i].click == ClkClientWin)
-				for (j = 0; j < LENGTH(modifiers); j++)
-					XGrabButton(dpy, buttons[i].button,
-						buttons[i].mask | modifiers[j],
-						c->win, False, BUTTONMASK,
-						GrabModeAsync, GrabModeSync, None, None);
+		/*for (i = 0; i < LENGTH(buttons); i++)*/
+			/*if (buttons[i].click == ClkClientWin)*/
+				/*for (j = 0; j < LENGTH(modifiers); j++)*/
+					/*XGrabButton(dpy, buttons[i].button,*/
+						/*buttons[i].mask | modifiers[j],*/
+						/*c->win, False, BUTTONMASK,*/
+						/*GrabModeAsync, GrabModeSync, None, None);*/
 	}
 }
 
