@@ -1,5 +1,4 @@
 /* See LICENSE file for copyright and license details. */
-int cycle_layouts( int dir );
 
 /* appearance */
 static const unsigned int borderpx 	= 3; 		/* border pixel of windows */
@@ -61,35 +60,19 @@ static const int resizehints = 1; 	 /* 1 means respect size hints in tiled resiz
 #define FORCE_VSPLIT 1 	/* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
 
-int layout_i = 0;
-static const int num_layouts = 8;
 static const Layout layouts[] = {
 	/* symbol 	arrange 					function */
- 	{ "[]= 	tile",	tile },						/* Default: Master on left, slaves on right */
-	{ "TTT 	bstack",	bstack },					/* Master on top, slaves on bottom */
-	{ "[@] 	spiral",	spiral },					/* Fibonacci spiral */
+ 	{ "[]= tile",	tile },						/* Default: Master on left, slaves on right */
+	{ "TTT bstack",	bstack },					/* Master on top, slaves on bottom */
+	{ "[@] spiral",	spiral },					/* Fibonacci spiral */
 	{ "[\\] dwindle",	dwindle },					/* Decreasing in size right and leftward */
-	{ "H[] 	deck",	deck },						/* Master on left, slaves in monocle-like mode on right */
- 	{ "[M] 	monocle",	monocle },					/* All windows on top of eachother */
-	{ "|M| 	centered",	centeredmaster },			/* Master in middle, slaves on sides */
-	{ ">M> 	floatingcentered",	centeredfloatingmaster },	/* Same but master floats */
-	{ "><> 	floating",	NULL },						/* no layout function means floating behavior */
+	{ "H[] deck",	deck },						/* Master on left, slaves in monocle-like mode on right */
+ 	{ "[M] monocle",	monocle },					/* All windows on top of eachother */
+	{ "|M| centered",	centeredmaster },			/* Master in middle, slaves on sides */
+	{ ">M> floatingcentered",	centeredfloatingmaster },	/* Same but master floats */
+	{ "><> floating",	NULL },						/* no layout function means floating behavior */
 	{ NULL,		NULL },
 };
-
-int cycle_layouts( int dir ) {
-	if (dir == -1 && layout_i == 0) {
-		layout_i = num_layouts;
-	}
-	else if (dir == 1 && layout_i == num_layouts) {
-		layout_i = 0;
-	}
-	else {
-		layout_i += dir;
-	}
-
-	return layout_i;
-}
 
 /* key definitions */
 #define MODKEY Mod1Mask /* set ALT as modifier */
@@ -98,10 +81,10 @@ int cycle_layouts( int dir ) {
 	{ MODKEY|ControlMask, 			KEY, 	toggleview, 	{.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask, 			KEY, 	tag, 			{.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY, 	toggletag, 		{.ui = 1 << TAG} },
-//#define STACKKEYS(MOD,ACTION) \
-	//{ MOD,	XK_j,	ACTION##stack,	{.i = INC(+1) } }, \ 	[> focus next window in stack <]
-	//{ MOD,	XK_k,	ACTION##stack,	{.i = INC(-1) } }, \ 	[> focus prev window in stack <]
-	//{ MOD, 	XK_v, 	ACTION##stack, 	{.i = 0 } },  			[> focus master <]
+#define STACKKEYS(MOD,ACTION) \
+	{ MOD,	XK_j,	ACTION##stack,	{.i = INC(+1) } }, \
+	{ MOD,	XK_k,	ACTION##stack,	{.i = INC(-1) } }, \
+	{ MOD, 	XK_v, 	ACTION##stack, 	{.i = 0 } },
 	/* { MOD, XK_grave, ACTION##stack, {.i = PREVSEL } }, \ */
 	/* { MOD, XK_a,     ACTION##stack, {.i = 1 } }, \ */
 	/* { MOD, XK_z,     ACTION##stack, {.i = 2 } }, \ */
@@ -134,17 +117,17 @@ static Key keys[] = {
 	//{ MODKEY,				XK_grave,		spawn,			SHCMD("dmenuunicode") },
 
 	/* Layouts */
-	//{ MODKEY,				XK_t,			setlayout,		{.v = &layouts[0]} }, 	[> tile <]
-	//{ MODKEY|ShiftMask,		XK_t,			setlayout,		{.v = &layouts[1]} }, 	[> bstack <]
-	//{ MODKEY,				XK_y,			setlayout,		{.v = &layouts[2]} }, 	[> spiral <]
-	//{ MODKEY|ShiftMask,		XK_y,			setlayout,		{.v = &layouts[3]} }, 	[> dwindle <]
-	//{ MODKEY,				XK_u,			setlayout,		{.v = &layouts[4]} }, 	[> deck <]
-	//{ MODKEY|ShiftMask,		XK_u,			setlayout,		{.v = &layouts[5]} }, 	[> monocle <]
-	//{ MODKEY,				XK_i,			setlayout,		{.v = &layouts[6]} }, 	[> centeredmaster <]
-	//{ MODKEY|ShiftMask,		XK_i,			setlayout,		{.v = &layouts[7]} }, 	[> centeredfloatingmaster <]
-	//{ MODKEY|ShiftMask,		XK_f,			setlayout,		{.v = &layouts[8]} }, 	[> floating layout <]
-	{ MODKEY,				XK_g,			setlayout,		{.v = layouts[cycle_layouts(1)]} },
-	{ MODKEY|ShiftMask,		XK_g,			setlayout,		{.v = layouts[cycle_layouts(-1)]} },
+	{ MODKEY,				XK_t,			setlayout,		{.v = &layouts[0]} }, 	/* tile */
+	{ MODKEY|ShiftMask,		XK_t,			setlayout,		{.v = &layouts[1]} }, 	/* bstack */
+	{ MODKEY,				XK_y,			setlayout,		{.v = &layouts[2]} }, 	/* spiral */
+	{ MODKEY|ShiftMask,		XK_y,			setlayout,		{.v = &layouts[3]} }, 	/* dwindle */
+	{ MODKEY,				XK_u,			setlayout,		{.v = &layouts[4]} }, 	/* deck */
+	{ MODKEY|ShiftMask,		XK_u,			setlayout,		{.v = &layouts[5]} }, 	/* monocle */
+	{ MODKEY,				XK_i,			setlayout,		{.v = &layouts[6]} }, 	/* centeredmaster */
+	{ MODKEY|ShiftMask,		XK_i,			setlayout,		{.v = &layouts[7]} }, 	/* centeredfloatingmaster */
+	{ MODKEY|ShiftMask,		XK_f,			setlayout,		{.v = &layouts[8]} }, 	/* floating layout */
+	{ MODKEY|ControlMask, 	XK_comma, 		cyclelayout,    {.i = -1 } }, 			/* cycles layout forward */
+	{ MODKEY|ControlMask, 	XK_period, 		cyclelayout,    {.i = +1 } }, 			/* cycles layout backward */
 
 	/* dwm settings */
 	{ MODKEY,				XK_b,			togglebar,		{0} }, 					/* toggle top bar */
@@ -199,8 +182,8 @@ static Key keys[] = {
 	{ 0, XF86XK_MonBrightnessUp,			spawn,			SHCMD("xbacklight -inc 1") }, /* inc monitor brightness by 1*/
 	{ 0, XF86XK_MonBrightnessDown,			spawn,			SHCMD("xbacklight -dec 15") }, /* dec monitor brightness by 15 */
 	{ 0, XF86XK_MonBrightnessDown,			spawn,			SHCMD("xbacklight -dec 1") }, /* dec monitor brightness by 1*/
-	//STACKKEYS(MODKEY, 						focus)
-	//STACKKEYS(MODKEY|ShiftMask, 			push)
+	STACKKEYS(MODKEY, 						focus)
+	STACKKEYS(MODKEY|ShiftMask, 			push)
 	TAGKEYS(				XK_1,			0)
 	TAGKEYS(				XK_2,			1)
 	TAGKEYS(				XK_3,			2)
