@@ -76,38 +76,38 @@ incrgaps(const Arg *arg)
 /* 	); */
 /* } */
 
-/* static void */
-/* incrogaps(const Arg *arg) */
-/* { */
-/* 	setgaps( */
-/* 		selmon->gappoh + arg->i, */
-/* 		selmon->gappov + arg->i, */
-/* 		selmon->gappih, */
-/* 		selmon->gappiv */
-/* 	); */
-/* } */
+static void
+incrogaps(const Arg *arg)
+{
+	setgaps(
+		selmon->gappoh + arg->i,
+		selmon->gappov + arg->i,
+		selmon->gappih,
+		selmon->gappiv
+	);
+}
 
-/* static void */
-/* incrohgaps(const Arg *arg) */
-/* { */
-/* 	setgaps( */
-/* 		selmon->gappoh + arg->i, */
-/* 		selmon->gappov, */
-/* 		selmon->gappih, */
-/* 		selmon->gappiv */
-/* 	); */
-/* } */
+static void 
+incrohgaps(const Arg *arg)
+{
+	setgaps(
+		selmon->gappoh + arg->i,
+		selmon->gappov,
+		selmon->gappih,
+		selmon->gappiv
+	);
+}
 
-/* static void */
-/* incrovgaps(const Arg *arg) */
-/* { */
-/* 	setgaps( */
-/* 		selmon->gappoh, */
-/* 		selmon->gappov + arg->i, */
-/* 		selmon->gappih, */
-/* 		selmon->gappiv */
-/* 	); */
-/* } */
+static void
+incrovgaps(const Arg *arg)
+{
+	setgaps(
+		selmon->gappoh,
+		selmon->gappov + arg->i,
+		selmon->gappih,
+		selmon->gappiv
+	);
+}
 
 /* static void */
 /* incrihgaps(const Arg *arg) */

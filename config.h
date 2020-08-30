@@ -107,6 +107,7 @@ static Key keys[] = {
 	{ MODKEY,				XK_0,			view,			{.ui = ~0 } },
 	{ MODKEY|ShiftMask,		XK_0,			tag,			{.ui = ~0 } },
 	{ MODKEY,				XK_Tab,			view,			{0} }, 					/* idk */
+	//{ MODKEY,				XK_q,			quit,			{0} }, 					
 
 	/* App shortcuts */
 	{ MODKEY,				XK_w,			spawn,		 	{.v = browsercmd } }, 	/* open browser */
@@ -124,8 +125,8 @@ static Key keys[] = {
 /*	{ MODKEY,				XK_i,			setlayout,		{.v = &layouts[6]} }, 	 centeredmaster */
 /*	{ MODKEY|ShiftMask,		XK_i,			setlayout,		{.v = &layouts[7]} }, 	 centeredfloatingmaster */
 /*	{ MODKEY|ShiftMask,		XK_f,			setlayout,		{.v = &layouts[8]} }, 	 floating layout */
-/*	{ MODKEY|ControlMask, 	XK_comma, 		cyclelayout,    {.i = -1 } }, 			 cycles layout forward */
-/*	{ MODKEY|ControlMask, 	XK_period, 		cyclelayout,    {.i = +1 } }, 			 cycles layout backward */
+	{ MODKEY|ControlMask, 	XK_comma, 		cyclelayout,    {.i = -1 } }, 			 /*cycles layout forward */
+	{ MODKEY|ControlMask, 	XK_period, 		cyclelayout,    {.i = +1 } }, 			 /*cycles layout backward */
 
 	/* dwm settings */
 	{ MODKEY,				XK_b,			togglebar,		{0} }, 					/* toggle top bar */
@@ -152,24 +153,28 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_period,		tagmon,			{.i = +1 } },
 
 	/* gaps */
-	{ MODKEY|ShiftMask,				XK_z,			incrgaps,		{.i = +3 } }, 			/* inc gaps between windows */
-	{ MODKEY,				XK_z,			incrgaps,		{.i = -3 } }, 			/* dec gaps between windows */
+	{ MODKEY,				XK_z,			incrgaps,		{.i = +3 } }, 			/* inc gaps between windows */
+	{ MODKEY|ShiftMask,				XK_z,			incrgaps,		{.i = -3 } }, 			/* dec gaps between windows */
+	{ MODKEY,	              XK_q,      incrovgaps,     {.i = +3 } }, /* increase vertical outer gaps */
+	{ MODKEY|ShiftMask,              XK_q,      incrovgaps,     {.i = -3 } }, /* decrease vetical outer gaps */
 	{ MODKEY,				XK_a,			togglegaps,		{0} }, 					/* toggle gaps */
 	{ MODKEY|ShiftMask,		XK_a,			defaultgaps,	{0} }, 					/* reset to default gaps */
 
 	/* V is automatically bound above in STACKKEYS */
 
-	{ 0, XF86XK_AudioRaiseVolume,			spawn,			SHCMD("amixer set Master 5%+") }, /* raise audio volume by 5 */
-	{ 0, XF86XK_AudioLowerVolume,			spawn,			SHCMD("amixer set Master 5%-") }, /* decrease audio volume by 5 */
+	{ 0, XF86XK_AudioRaiseVolume,			spawn,			SHCMD("amixer set Master 10%+") }, /* raise audio volume by 5 */
+	{ 0, XF86XK_AudioLowerVolume,			spawn,			SHCMD("amixer set Master 10%-") }, /* decrease audio volume by 5 */
+	{ ShiftMask, XF86XK_AudioRaiseVolume,			spawn,			SHCMD("amixer set Master 1%+") }, /* raise audio volume by 5 */
+	{ ShiftMask, XF86XK_AudioLowerVolume,			spawn,			SHCMD("amixer set Master 1%-") }, /* decrease audio volume by 5 */
 	{ 0, XF86XK_AudioMute,					spawn,			SHCMD("amixer set Master toggle") }, /* toggle audio */
 	{ 0, XF86XK_Launch1,					spawn,			SHCMD("xset dpms force off") },
 	{ 0, XF86XK_TouchpadToggle,				spawn,			SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") }, /* toggle touchpad */
 	{ 0, XF86XK_TouchpadOff,				spawn,			SHCMD("synclient TouchpadOff=1") }, /* turn off touchpad */
 	{ 0, XF86XK_TouchpadOn,					spawn,			SHCMD("synclient TouchpadOff=0") }, /* turn on touchpad */
 	{ 0, XF86XK_MonBrightnessUp,			spawn,			SHCMD("xbacklight -inc 15") }, /* inc monitor brightness by 15*/
-	{ 0, XF86XK_MonBrightnessUp,			spawn,			SHCMD("xbacklight -inc 1") }, /* inc monitor brightness by 1*/
+	{ ShiftMask, XF86XK_MonBrightnessUp,			spawn,			SHCMD("xbacklight -inc 1") }, /* inc monitor brightness by 1*/
 	{ 0, XF86XK_MonBrightnessDown,			spawn,			SHCMD("xbacklight -dec 15") }, /* dec monitor brightness by 15 */
-	{ 0, XF86XK_MonBrightnessDown,			spawn,			SHCMD("xbacklight -dec 1") }, /* dec monitor brightness by 1*/
+	{ ShiftMask, XF86XK_MonBrightnessDown,			spawn,			SHCMD("xbacklight -dec 1") }, /* dec monitor brightness by 1*/
 	STACKKEYS(MODKEY, 						focus)
 	STACKKEYS(MODKEY|ShiftMask, 			push)
 	TAGKEYS(				XK_parenleft,			0)
