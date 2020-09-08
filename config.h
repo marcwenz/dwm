@@ -91,7 +91,7 @@ static const Layout layouts[] = {
 	/* { MOD, XK_x,     ACTION##stack, {.i = -1 } }, */
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/zsh", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -114,6 +114,8 @@ static Key keys[] = {
 	{ MODKEY,				XK_d,			spawn, 			{.v = dmenucmd } }, 	/* open dmenu */
 	{ MODKEY,				XK_t, 			spawn,			{.v = termcmd } }, 		/* open terminal */
 	{ MODKEY,				XK_n,			spawn,			{.v = emacscmd } }, 	/* open terminal */
+	{ MODKEY,               XK_r,			spawn,			SHCMD("btmenu") }, /* dmenu bluetooth */
+	{ MODKEY|ShiftMask,		XK_r,           spawn,			SHCMD("bluetoothctl power off") }, /* disable bluetooth */
 
 	/* Layouts */
 /*	{ MODKEY,				XK_t,			setlayout,		{.v = &layouts[0]} }, 	 tile */
@@ -162,12 +164,11 @@ static Key keys[] = {
 
 	/* V is automatically bound above in STACKKEYS */
 
-	{ 0, XF86XK_AudioRaiseVolume,			spawn,			SHCMD("amixer set Master 10%+") }, /* raise audio volume by 5 */
-	{ 0, XF86XK_AudioLowerVolume,			spawn,			SHCMD("amixer set Master 10%-") }, /* decrease audio volume by 5 */
-	{ ShiftMask, XF86XK_AudioRaiseVolume,			spawn,			SHCMD("amixer set Master 1%+") }, /* raise audio volume by 5 */
-	{ ShiftMask, XF86XK_AudioLowerVolume,			spawn,			SHCMD("amixer set Master 1%-") }, /* decrease audio volume by 5 */
-	{ 0, XF86XK_AudioMute,					spawn,			SHCMD("amixer set Master toggle") }, /* toggle audio */
-	{ 0, XF86XK_Launch1,					spawn,			SHCMD("xset dpms force off") },
+	{ 0, XF86XK_AudioRaiseVolume,			spawn,			SHCMD("pamixer -i 10") }, /* raise audio volume by 5 */
+	{ 0, XF86XK_AudioLowerVolume,			spawn,			SHCMD("pamixer -d 10") }, /* decrease audio volume by 5 */
+	{ ShiftMask, XF86XK_AudioRaiseVolume,			spawn,			SHCMD("pamixer -i 1") }, /* raise audio volume by 5 */
+	{ ShiftMask, XF86XK_AudioLowerVolume,			spawn,			SHCMD("pamixer -d 1") }, /* decrease audio volume by 5 */
+	{ 0, XF86XK_AudioMute,					spawn,			SHCMD("pamixer -t") }, /* toggle audio */
 	{ 0, XF86XK_TouchpadToggle,				spawn,			SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") }, /* toggle touchpad */
 	{ 0, XF86XK_TouchpadOff,				spawn,			SHCMD("synclient TouchpadOff=1") }, /* turn off touchpad */
 	{ 0, XF86XK_TouchpadOn,					spawn,			SHCMD("synclient TouchpadOff=0") }, /* turn on touchpad */
@@ -175,6 +176,7 @@ static Key keys[] = {
 	{ ShiftMask, XF86XK_MonBrightnessUp,			spawn,			SHCMD("xbacklight -inc 1") }, /* inc monitor brightness by 1*/
 	{ 0, XF86XK_MonBrightnessDown,			spawn,			SHCMD("xbacklight -dec 15") }, /* dec monitor brightness by 15 */
 	{ ShiftMask, XF86XK_MonBrightnessDown,			spawn,			SHCMD("xbacklight -dec 1") }, /* dec monitor brightness by 1*/
+	{ 0, XF86XK_PowerOff,			spawn,			SHCMD("power") }, /* power menu */
 	STACKKEYS(MODKEY, 						focus)
 	STACKKEYS(MODKEY|ShiftMask, 			push)
 	TAGKEYS(				XK_parenleft,			0)
