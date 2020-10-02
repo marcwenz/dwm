@@ -118,6 +118,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_r,           spawn,			SHCMD("bluetoothctl power off") }, /* disable bluetooth */
 	{ MODKEY,               XK_y,			spawn,			SHCMD("networkmanager_dmenu") }, /* dmenu wifi */
 	{ MODKEY|ShiftMask,		XK_y,           spawn,			SHCMD("st -e nmtui") }, /* open nmtui */
+	{ MODKEY,	  			XK_m,           spawn,			SHCMD("layout") }, /* change kbd layout */
 
 	/* Layouts */
 /*	{ MODKEY,				XK_t,			setlayout,		{.v = &layouts[0]} }, 	 tile */
